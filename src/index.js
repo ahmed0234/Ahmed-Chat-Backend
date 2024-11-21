@@ -10,8 +10,14 @@ import { app, server } from "./lib/socket.js";
 dotenv.config();
 
 const PORT = process.env.PORT;
-
-app.use(cors());
+// Set up CORS to allow all origins
+app.use(
+  cors({
+    origin: "*", // This allows all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allow all HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], // Allow these headers
+  })
+);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
