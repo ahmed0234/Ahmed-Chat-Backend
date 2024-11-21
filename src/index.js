@@ -11,7 +11,7 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 
-app.use(cors({ origin: "https://ahmedchatapp.vercel.app", credentials: true }));
+app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
