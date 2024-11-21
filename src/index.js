@@ -11,13 +11,18 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 // Set up CORS to allow all origins
+
+app.use(cors()); // Default CORS
+
 app.use(
   cors({
-    origin: "*", // This allows all origins
+    origin: "*", // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allow all HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], // Allow these headers
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], // Allow specific headers
+    credentials: true, // If you're using cookies or authentication headers
   })
 );
+
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
