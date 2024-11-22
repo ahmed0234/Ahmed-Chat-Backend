@@ -7,25 +7,26 @@ import { connectDB } from "./lib/db.js";
 import cors from "cors";
 import { app, server } from "./lib/socket.js";
 
+import path from "path";
+
 dotenv.config();
 
 const PORT = process.env.PORT;
 // Set up CORS to allow all origins
+const __dirname = path.resolve();
+
+console.log(__dirname);
+
+app.use(express.static(__dirname + "/src" + "/dist"));
 
 app.use(
   cors({
-    origin: "https://ahmedchatapp.vercel.app", // Allow all origins
+    origin: "*", // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allow all HTTP methods
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], // Allow specific headers
     credentials: true, // If you're using cookies or authentication headers
   })
 );
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://ahmedchatapp.vercel.app"); // Specify frontend URL
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
